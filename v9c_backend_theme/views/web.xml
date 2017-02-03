@@ -28,7 +28,7 @@
             <t t-set="body_classname" t-value="'drawer drawer--left'" />
 
             <header role="banner">
-                <nav id="odooAppDrawer" class="app-drawer-nav drawer-nav" role="navigation">
+                <nav id="odooAppDrawer" class="app-drawer-nav drawer-nav oe_main_menu_navbar" role="navigation">
                     <t t-call="web.menu" />
                 </nav>
 

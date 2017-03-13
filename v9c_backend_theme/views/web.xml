@@ -45,14 +45,14 @@
                                accesskey="A"
                                >
                                 <span class="sr-only">Toggle App Drawer</span>
-                                <i class="fa fa-th fa-lg app-drawer-icon-open" />
+                                <img src="/v9c_backend_theme/static/src/img/logo.png" />
                             </a>
 
                             <button type="button"
                                     class="app-drawer-toggle drawer-toggle pull-left navbar-toggle collapsed"
                                     >
                                 <span class="sr-only">Toggle App Drawer</span>
-                                <div class="fa fa-th fa-lg app-drawer-icon-open" />
+                                <img src="/v9c_backend_theme/static/src/img/logo.png" />
                             </button>
 
                             <button type="button"

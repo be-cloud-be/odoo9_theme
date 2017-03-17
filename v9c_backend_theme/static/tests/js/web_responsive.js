@@ -36,6 +36,8 @@ odoo.define_section('web_responsive', ['web_responsive'], function(test) {
         
         self.drawer = new AppDrawer.AppDrawer();
         
+        self.drawer.open();
+        
         return $document;
         
     };

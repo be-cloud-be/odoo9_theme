@@ -95,7 +95,9 @@ odoo.define('web_responsive', function(require) {
         // It provides initialization handlers for Drawer
         initDrawer: function() {
             this.$el = $('.drawer');
-            this.$el.drawer();
+            this.$el.drawer({
+                showOverlay: false,
+            });
             this.$el.one('drawer.opened', $.proxy(this.onDrawerOpen, this));
             this.$el.on('drawer.opened', function setIScrollProbes(){
                 var onIScroll = function() {

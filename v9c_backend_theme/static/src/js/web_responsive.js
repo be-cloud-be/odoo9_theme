@@ -171,7 +171,7 @@ odoo.define('web_responsive', function(require) {
          * @listens ``drawer.opened`` and sends to onDrawerOpen
          */
         onDrawerClose: function() {
-            this.$el('.oe_secondary_menus_container').show();
+            $('.oe_secondary_menus_container').show();
             core.bus.trigger('drawer.closed');
             this.$el.one('drawer.opened', $.proxy(this.onDrawerOpen, this));
             this.isOpen = false;
@@ -184,7 +184,7 @@ odoo.define('web_responsive', function(require) {
          * @listens ``drawer.closed`` and sends to :meth:``onDrawerClose``
          */
         onDrawerOpen: function() {
-            this.$el('.oe_secondary_menus_container').hide();
+            $('.oe_secondary_menus_container').hide();
             this.$appLinks = $('.app-drawer-icon-app').parent();
             this.selectAppLink($(this.$appLinks[0]));
             this.$el.one('drawer.closed', $.proxy(this.onDrawerClose, this));

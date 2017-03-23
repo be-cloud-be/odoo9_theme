@@ -173,13 +173,11 @@ odoo.define('web_responsive', function(require) {
         onDrawerClose: function() {
             var self = this;
             $('.oe_secondary_menus_container').show();
-            setTimeout(function(){
-                core.bus.trigger('drawer.closed');
-                self.$el.one('drawer.opened', $.proxy(self.onDrawerOpen, self));
-                self.isOpen = false;
-                // Remove inline style inserted by drawer.js
-                self.$el.css("overflow", "");
-            }, 2000);
+            core.bus.trigger('drawer.closed');
+            self.$el.one('drawer.opened', $.proxy(self.onDrawerOpen, self));
+            self.isOpen = false;
+            // Remove inline style inserted by drawer.js
+            self.$el.css("overflow", "");
         },
 
         /* It finds app links and register event handlers

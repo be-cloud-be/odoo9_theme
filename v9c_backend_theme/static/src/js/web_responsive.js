@@ -171,12 +171,15 @@ odoo.define('web_responsive', function(require) {
          * @listens ``drawer.opened`` and sends to onDrawerOpen
          */
         onDrawerClose: function() {
+            var self = this;
             $('.oe_secondary_menus_container').show();
-            core.bus.trigger('drawer.closed');
-            this.$el.one('drawer.opened', $.proxy(this.onDrawerOpen, this));
-            this.isOpen = false;
-            // Remove inline style inserted by drawer.js
-            this.$el.css("overflow", "");
+            setTimeout(function(){
+                core.bus.trigger('drawer.closed');
+                self.$el.one('drawer.opened', $.proxy(self.onDrawerOpen, self));
+                self.isOpen = false;
+                // Remove inline style inserted by drawer.js
+                self.$el.css("overflow", "");
+            }, 2000);
         },
 
         /* It finds app links and register event handlers
@@ -287,7 +290,8 @@ odoo.define('web_responsive', function(require) {
     // It inits a new AppDrawer when the web client is ready and open it
     core.bus.on('web_client_ready', null, function () {
         var drawer = new AppDrawer();
-        drawer.$el.drawer('open')
+        drawer.$el.drawer('open');
+        $('.oe_secondary_menus_container').hide();
     });
 
     return {

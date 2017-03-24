@@ -288,8 +288,10 @@ odoo.define('web_responsive', function(require) {
     // It inits a new AppDrawer when the web client is ready and open it
     core.bus.on('web_client_ready', null, function () {
         var drawer = new AppDrawer();
-        drawer.$el.drawer('open');
-        $('.oe_secondary_menus_container').hide();
+        if(window.location.href.indexOf("action") < 0) {
+            drawer.$el.drawer('open');
+            $('.oe_secondary_menus_container').hide();    
+        }
     });
 
     return {

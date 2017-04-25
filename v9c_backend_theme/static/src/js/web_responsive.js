@@ -114,7 +114,8 @@ odoo.define('web_responsive', function(require) {
 
         // It provides handlers to hide drawer when "unfocused"
         handleClickZones: function() {
-            this.$el.drawer('close');
+            var self = this;
+            setTimeout(function() { self.$el.drawer('close'); }, 1200);
             $('.oe_secondary_menus_container')
                 .parent()
                 .collapse('hide');
@@ -288,7 +289,7 @@ odoo.define('web_responsive', function(require) {
     // It inits a new AppDrawer when the web client is ready and open it
     core.bus.on('web_client_ready', null, function () {
         var drawer = new AppDrawer();
-        if(window.location.href.indexOf("action") < 0) {
+        if(window.location.hash.indexOf("action") < 0) {
             drawer.$el.drawer('open');
             $('.oe_secondary_menus_container').hide();    
         }

@@ -62,11 +62,7 @@ odoo.define('web_responsive', function(require) {
     var LoadingHandler = Class.extend({
         init: function(parent) {
             this.parent = parent;
-            this.count = 0;
-            this.blocked_ui = false;
-            session.on("request", this, this.request_call);
-            session.on("response", this, this.response_call);
-            session.on("response_failed", this, this.response_call);
+            
         },
         destroy: function() {
             this.on_rpc_event(-this.count);
@@ -85,7 +81,7 @@ odoo.define('web_responsive', function(require) {
                 this.long_running_timer = setTimeout(function () {
                     self.blocked_ui = true;
                     framework.blockUI();
-                }, 3000);
+                }, 6000);
             }
     
             this.count += increment;
@@ -135,6 +131,13 @@ odoo.define('web_responsive', function(require) {
             $clickZones.click($.proxy(this.handleClickZones, this));
             core.bus.on('resize', this, this.handleWindowResize);
             core.bus.on('keydown', this, this.handleNavKeys);
+            
+            this.loading = false;
+            this.count = 0;
+            this.blocked_ui = false;
+            session.on("request", this, this.request_call);
+            session.on("response", this, this.response_call);
+            session.on("response_failed", this, this.response_call);
         },
 
         // It provides initialization handlers for Drawer
@@ -165,10 +168,47 @@ odoo.define('web_responsive', function(require) {
             core.bus.on('web_client_ready', null, function () {
                 self.$el.drawer('close'); 
             });
-            var loader = new LoadingHandler(self.$el);
+            this.loading = true;
             $('.oe_secondary_menus_container')
                 .parent()
                 .collapse('hide');
+        },
+        
+        destroy: function() {
+            this.on_rpc_event(-this.count);
+            this._super();
+        },
+        request_call: function() {
+            if (this.loading) {
+                this.on_rpc_event(1);
+            }
+        },
+        response_call: function() {
+            if (this.loading) {
+                this.on_rpc_event(-1);
+            }
+        },
+        on_rpc_event : function(increment) {
+            var self = this;
+            if (!this.count && increment === 1) {
+                // Block UI after 3s
+                this.long_running_timer = setTimeout(function () {
+                    self.blocked_ui = true;
+                    framework.blockUI();
+                }, 6000);
+            }
+    
+            this.count += increment;
+            if (this.count <= 0) {
+                this.count = 0;
+                clearTimeout(this.long_running_timer);
+                // Don't unblock if blocked by somebody else
+                if (self.blocked_ui) {
+                    this.blocked_ui = false;
+                    framework.unblockUI();
+                }
+                this.parent.drawer('close');
+            }
         },
 
         // It resizes bootstrap dropdowns for screen

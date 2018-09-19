@@ -141,11 +141,13 @@ odoo.define('web_responsive', function(require) {
         },
         request_call: function() {
             if (this.loading) {
+                console.log('+1');
                 this.on_rpc_event(1);
             }
         },
         response_call: function() {
             if (this.loading) {
+                console.log('-1');
                 this.on_rpc_event(-1);
             }
         },
@@ -161,6 +163,7 @@ odoo.define('web_responsive', function(require) {
     
             this.count += increment;
             if (this.count <= 0) {
+                console.log('hide');
                 this.count = 0;
                 clearTimeout(this.long_running_timer);
                 // Don't unblock if blocked by somebody else

@@ -126,9 +126,6 @@ odoo.define('web_responsive', function(require) {
             var self = this;
             // TODO - hide when load is done
             //setTimeout(function() { self.$el.drawer('close'); }, 1200);
-            core.bus.on('web_client_ready', null, function () {
-                self.$el.drawer('close'); 
-            });
             this.loading = true;
             $('.oe_secondary_menus_container')
                 .parent()

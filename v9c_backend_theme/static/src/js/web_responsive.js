@@ -61,7 +61,6 @@ odoo.define('web_responsive', function(require) {
 
     var LoadingHandler = Class.extend({
         init: function(parent) {
-            this._super(parent);
             this.parent = parent;
             this.count = 0;
             this.blocked_ui = false;

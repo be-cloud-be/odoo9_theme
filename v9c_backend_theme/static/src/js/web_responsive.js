@@ -119,10 +119,9 @@ odoo.define('web_responsive', function(require) {
             var self = this;
             // TODO - hide when load is done
             //setTimeout(function() { self.$el.drawer('close'); }, 1200);
-            session.on("view_shown", this, function() {
+            session.on("DOM_updated", this, function() {
                 this.$el.drawer('close');
             });
-            this.loading = true;
             $('.oe_secondary_menus_container')
                 .parent()
                 .collapse('hide');

@@ -168,7 +168,7 @@ odoo.define('web_responsive', function(require) {
                     this.blocked_ui = false;
                     framework.unblockUI();
                 }
-                this.parent.drawer('close');
+                this.$el.drawer('close');
             }
         },
 

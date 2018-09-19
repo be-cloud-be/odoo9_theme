@@ -59,45 +59,6 @@ odoo.define('web_responsive', function(require) {
 
     });
 
-    var LoadingHandler = Class.extend({
-        init: function(parent) {
-            this.parent = parent;
-            
-        },
-        destroy: function() {
-            this.on_rpc_event(-this.count);
-            this._super();
-        },
-        request_call: function() {
-            this.on_rpc_event(1);
-        },
-        response_call: function() {
-            this.on_rpc_event(-1);
-        },
-        on_rpc_event : function(increment) {
-            var self = this;
-            if (!this.count && increment === 1) {
-                // Block UI after 3s
-                this.long_running_timer = setTimeout(function () {
-                    self.blocked_ui = true;
-                    framework.blockUI();
-                }, 6000);
-            }
-    
-            this.count += increment;
-            if (this.count <= 0) {
-                this.count = 0;
-                clearTimeout(this.long_running_timer);
-                // Don't unblock if blocked by somebody else
-                if (self.blocked_ui) {
-                    this.blocked_ui = false;
-                    framework.unblockUI();
-                }
-                this.parent.drawer('close');
-            }
-        }
-    });
-
     var AppDrawer = Class.extend({
 
         LEFT: 'left',
